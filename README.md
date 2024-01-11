@@ -12,9 +12,9 @@ As stated above the GUI system are going to use is Dear ImGui there are some not
 
 The first important point to be aware of is that ImGui is an immediate mode graphic user interface, as the name implies it: "ImGui". There are two types of UIs, retained mode and immediate mode.
 
-    Immediate mode: the application state is separated from the graphics library. It is the application responsibility for drawing commands when necessary. In other words, in immediate mode the client calls directly results in the rendering of graphics objects to the display.
+Immediate mode: the application state is separated from the graphics library. It is the application responsibility for drawing commands when necessary. In other words, in immediate mode the client calls directly results in the rendering of graphics objects to the display.
 
-    Retained mode: the client calls do not directly cause actual rendering, but instead update an abstract internal model, which is maintained within the library's data space. system can see more about this mode here.
+Retained mode: the client calls do not directly cause actual rendering, but instead update an abstract internal model, which is maintained within the library's data space. system can see more about this mode here.
 
 For this API there is no need for specific builds, system can add the files to systemr existing project. To integrate Dear ImGui system must use a backend, this backend passes mouse/keyboard/gamepad inputs and a variety of settings. It is in charge of rendering the resulting vertices.
 
@@ -111,6 +111,7 @@ A text box that lets the user filter the table.
             Users must be able to select multiple rows of the table.
 
 example :
+
 [image](https://learn.reboot01.com/git/root/public/media/branch/master/subjects/system-monitor/mem.gif)
 
 Network, that will contain :
@@ -131,4 +132,5 @@ example :
 
 The visual display should go from 0GB to 2GB
 example :
-    [image](https://learn.reboot01.com/git/root/public/media/branch/master/subjects/system-monitor/network.gif)https://learn.reboot01.com/git/root/public/media/branch/master/subjects/system-monitor/network.gif
+
+[image](https://learn.reboot01.com/git/root/public/media/branch/master/subjects/system-monitor/network.gif)
