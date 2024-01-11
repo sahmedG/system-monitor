@@ -91,7 +91,8 @@ Thermal, should present the graph stated above with an overlay text saying the c
 
 example :
 
-[image](https://learn.reboot01.com/git/root/public/media/branch/master/subjects/system-monitor/system.gif)
+![image](https://learn.reboot01.com/git/root/public/media/branch/master/subjects/system-monitor/system.gif)
+
 Memory and process monitor, that will contain :
 
 The Physic Memory (RAM) being used, it must have some kind of visual display of this usage.
@@ -112,7 +113,7 @@ A text box that lets the user filter the table.
 
 example :
 
-[image](https://learn.reboot01.com/git/root/public/media/branch/master/subjects/system-monitor/mem.gif)
+![image](https://learn.reboot01.com/git/root/public/media/branch/master/subjects/system-monitor/mem.gif)
 
 Network, that will contain :
 
@@ -133,4 +134,4 @@ example :
 The visual display should go from 0GB to 2GB
 example :
 
-[image](https://learn.reboot01.com/git/root/public/media/branch/master/subjects/system-monitor/network.gif)
+![image](https://learn.reboot01.com/git/root/public/media/branch/master/subjects/system-monitor/network.gif)
