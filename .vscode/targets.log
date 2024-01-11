@@ -1,0 +1,622 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 4.3
+ 
+# Built for x86_64-pc-linux-gnu
+ 
+# Copyright (C) 1988-2020 Free Software Foundation, Inc.
+ 
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+ 
+# This is free software: you are free to change and redistribute it.
+ 
+# There is NO WARRANTY, to the extent permitted by law.
+ 
+
+ 
+# Make data base, printed on Mon Sep  4 09:41:55 2023
+ 
+
+# Variables
+ 
+
+ 
+# environment
+ 
+GDK_BACKEND = x11
+ 
+# environment
+ 
+LC_ALL = C
+ 
+# environment
+ 
+GNOME_SHELL_SESSION_MODE = ubuntu
+ 
+# environment
+SSH_AGENT_LAUNCHER = gnome-keyring
+# makefile (from 'Makefile', line 70)
+ECHO_MESSAGE = "Linux"
+# environment
+LC_NAME = ar_BH.UTF-8
+# environment
+LC_NUMERIC = ar_BH.UTF-8
+# environment
+VSCODE_CRASH_REPORTER_PROCESS_TYPE = extensionHost
+# environment
+VSCODE_CWD = /home/sam/system-monitor
+# makefile (from 'Makefile', line 71)
+LIBS = -lGL -ldl `sdl2-config --libs` -lsensors -I/usr/include/sensors/sensors.h
+# environment
+LC_ADDRESS = ar_BH.UTF-8
+# default
+MAKE_COMMAND := make
+# environment
+QT_ACCESSIBILITY = 1
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# default
+.VARIABLES := 
+# environment
+PWD = /home/sam/system-monitor
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
+# environment
+OLDPWD = /home/sam
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# automatic
+%F = $(notdir $%)
+# environment
+VSCODE_CODE_CACHE_PATH = /home/sam/.config/Code/CachedData/6c3e3dba23e8fadc360aed75ce363ba185c49794
+# environment
+LANG = C
+# environment
+XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.DYNJA2
+# default
+.LOADED := 
+# default
+.INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
+# environment
+GNOME_TERMINAL_SERVICE = :1.108
+# makefile
+MAKEFLAGS = pqrR
+# makefile
+CURDIR := /home/sam/system-monitor
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# environment
+LESSOPEN = | /usr/bin/lesspipe %s
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+MFLAGS = -pqrR
+# environment
+SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
+# default
+.SHELLFLAGS := -c
+# environment
+WAYLAND_DISPLAY = wayland-0
+# environment
+XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+XDG_SESSION_DESKTOP = ubuntu
+# makefile (from 'Makefile', line 1)
+MAKEFILE_LIST := Makefile
+# automatic
+@F = $(notdir $@)
+# makefile (from 'Makefile', line 18)
+IMGUI_DIR = imgui/lib/
+# environment
+VSCODE_PID = 4516
+# environment
+XDG_SESSION_TYPE = wayland
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# environment
+SESSION_MANAGER = local/sam-Inspiron-5521:@/tmp/.ICE-unix/1877,unix/sam-Inspiron-5521:/tmp/.ICE-unix/1877
+# automatic
+*F = $(notdir $*)
+# environment
+CHROME_DESKTOP = code-url-handler.desktop
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-us","osLocale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# makefile (from 'Makefile', line 28)
+OBJS = $(addsuffix .o, $(basename $(notdir $(SOURCES))))
+# environment
+GNOME_DESKTOP_SESSION_ID = this-is-deprecated
+# makefile
+SHELL = /bin/sh
+# default
+MAKECMDGOALS := all
+# environment
+XMODIFIERS = @im=ibus
+# environment
+SHLVL = 1
+# environment
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/dec3e8b0_9df7_4deb_8b37_b19e7bce3c06
+# environment
+MAKELEVEL := 0
+# default
+MAKE = $(MAKE_COMMAND)
+# environment
+PATH = /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/usr/local/go/bin
+# default
+MAKEFILES := 
+# environment
+LC_MONETARY = ar_BH.UTF-8
+# automatic
+^F = $(notdir $^)
+# environment
+LC_TIME = ar_BH.UTF-8
+# environment
+USERNAME = sam
+# environment
+GNOME_SETUP_DISPLAY = :1
+# environment
+LC_TELEPHONE = ar_BH.UTF-8
+# environment
+LESSCLOSE = /usr/bin/lesspipe %s %s
+# automatic
+?F = $(notdir $?)
+# environment
+XDG_CURRENT_DESKTOP = Unity
+# makefile (from 'Makefile', line 29)
+UNAME_S := Linux
+# environment
+LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+# automatic
++F = $(notdir $+)
+# environment
+DESKTOP_SESSION = ubuntu
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+LOGNAME = sam
+# makefile (from 'Makefile', line 17)
+EXE = monitor
+# makefile
+.DEFAULT_GOAL := all
+# environment
+SYSTEMD_EXEC_PID = 1910
+# environment
+DISPLAY = :0
+# environment
+USER = sam
+# environment
+GTK_MODULES = gail:atk-bridge
+# default
+MAKE_VERSION := 4.3
+# 'override' directive
+.SHELLSTATUS := 0
+# environment
+LC_MEASUREMENT = ar_BH.UTF-8
+# environment
+_ = /usr/bin/code
+# environment
+LC_PAPER = ar_BH.UTF-8
+# environment
+XDG_RUNTIME_DIR = /run/user/1000
+# makefile (from 'Makefile', line 74)
+CFLAGS = $(CXXFLAGS)
+# environment
+COLORTERM = truecolor
+# environment
+XDG_SESSION_CLASS = user
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /home/sam
+# environment
+QT_IM_MODULE = ibus
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+VSCODE_IPC_HOOK = /run/user/1000/vscode-a3bf6175-1.81-main.sock
+# environment
+TERM = xterm-256color
+# environment
+IM_CONFIG_PHASE = 1
+# default
+.RECIPEPREFIX := 
+# automatic
+<F = $(notdir $<)
+# default
+SUFFIXES := 
+# environment
+VSCODE_CLI = 1
+# environment
+ELECTRON_NO_ATTACH_CONSOLE = 1
+# environment
+VTE_VERSION = 6800
+# makefile (from 'Makefile', line 73)
+CXXFLAGS = -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backend -g -Wall -Wformat -I imgui/lib/gl3w -DIMGUI_IMPL_OPENGL_LOADER_GL3W `sdl2-config --cflags`
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink load
+# makefile (from 'Makefile', line 40)
+SOURCES = main.cpp systemwindow.cpp memorywindow.cpp networkwindow.cpp system.cpp mem.cpp network.cpp $(IMGUI_DIR)/imgui.cpp $(IMGUI_DIR)/imgui_demo.cpp $(IMGUI_DIR)/imgui_draw.cpp $(IMGUI_DIR)/imgui_tables.cpp $(IMGUI_DIR)/imgui_widgets.cpp $(IMGUI_DIR)/backend/imgui_impl_sdl.cpp $(IMGUI_DIR)/backend/imgui_impl_opengl3.cpp imgui/lib/gl3w/GL/gl3w.c
+# environment
+XDG_MENU_PREFIX = gnome-
+# environment
+GDMSESSION = ubuntu
+# environment
+LC_IDENTIFICATION = ar_BH.UTF-8
+# variable set hash-table stats:
+# Load=114/1024=11%, Rehash=0, Collisions=10/193=5%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# imgui/lib/gl3w/GL (device 2050, inode 8526522): 1 files, no impossibilities so far.
+# imgui/lib/ (device 2050, inode 8526518): 15 files, no impossibilities.
+# . (device 2050, inode 8526471): 30 files, no impossibilities.
+# imgui/lib/glad/src: could not be stat'd.
+# imgui/lib//backend (device 2050, inode 8526528): 6 files, no impossibilities.
+
+# 52 files, no impossibilities in 5 directories.
+
+# Implicit Rules
+
+%.o: %.cpp
+#  recipe to execute (from 'Makefile', line 100):
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+%.o: imgui/lib//%.cpp
+#  recipe to execute (from 'Makefile', line 103):
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+%.o: imgui/lib//backend/%.cpp
+#  recipe to execute (from 'Makefile', line 106):
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+%.o: imgui/lib/gl3w/GL/%.c
+#  recipe to execute (from 'Makefile', line 109):
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+%.o: imgui/lib/glad/src/%.c
+#  recipe to execute (from 'Makefile', line 112):
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+# 5 implicit rules, 0 (0.0%) terminal.
+# Files
+
+systemwindow.o: systemwindow.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'systemwindow'
+#  Last modified 2023-08-31 21:01:47.917846815
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 100):
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+# Not a target:
+imgui/lib//imgui_widgets.cpp:
+#  Implicit rule search has been done.
+ 
+#  Last modified 2021-03-31 11:43:54
+ 
+#  File has been updated.
+ 
+#  Successfully updated.
+
+imgui_widgets.o: imgui/lib//imgui_widgets.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'imgui_widgets'
+#  Last modified 2023-08-31 21:02:11.083416328
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 103):
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+# Not a target:
+imgui/lib/gl3w/GL/gl3w.c:
+#  Implicit rule search has been done.
+#  Last modified 2023-08-27 20:36:57.652707541
+#  File has been updated.
+#  Successfully updated.
+
+imgui_tables.o: imgui/lib//imgui_tables.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'imgui_tables'
+#  Last modified 2023-08-31 21:02:08.207218536
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 103):
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+# Not a target:
+imgui/lib//imgui_draw.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2021-03-31 11:43:54
+#  File has been updated.
+#  Successfully updated.
+
+mem.o: mem.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'mem'
+#  Last modified 2023-08-31 21:01:57.178467687
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 100):
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+# Not a target:
+system.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2023-08-29 08:29:30.161117882
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2023-08-30 20:42:56.406544027
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+imgui/lib//imgui.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2021-03-31 11:43:54
+#  File has been updated.
+#  Successfully updated.
+
+gl3w.o: imgui/lib/gl3w/GL/gl3w.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'gl3w'
+#  Last modified 2023-08-31 21:02:13.031550756
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 109):
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 121):
+	rm -f $(EXE) $(OBJS)
+
+# Not a target:
+imgui/lib//backend/imgui_impl_opengl3.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2021-03-31 11:43:54
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+imgui/lib//imgui_tables.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2021-03-31 11:43:54
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+networkwindow.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2023-08-30 20:28:14.171917232
+#  File has been updated.
+#  Successfully updated.
+
+imgui_impl_opengl3.o: imgui/lib//backend/imgui_impl_opengl3.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'imgui_impl_opengl3'
+#  Last modified 2023-08-31 21:02:12.815535838
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 106):
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+imgui.o: imgui/lib//imgui.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'imgui'
+#  Last modified 2023-08-31 21:02:02.498828384
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 103):
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+imgui_impl_sdl.o: imgui/lib//backend/imgui_impl_sdl.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'imgui_impl_sdl'
+#  Last modified 2023-08-31 21:02:12.543517057
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 106):
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+networkwindow.o: networkwindow.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'networkwindow'
+#  Last modified 2023-08-31 21:01:52.490152251
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 100):
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+# Not a target:
+network.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2021-03-31 16:10:26
+#  File has been updated.
+#  Successfully updated.
+
+system.o: system.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'system'
+#  Last modified 2023-08-31 21:01:54.870312103
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 100):
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+# Not a target:
+memorywindow.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2023-08-30 20:27:32.314332997
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+systemwindow.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2023-08-31 21:01:42.869512171
+#  File has been updated.
+#  Successfully updated.
+
+all: monitor
+#  Command line target.
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: ''
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := all
+# automatic
+# * := 
+# automatic
+# < := monitor
+# automatic
+# + := monitor
+# automatic
+# % := 
+# automatic
+# ^ := monitor
+# automatic
+# ? := monitor
+# automatic
+# | := 
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/12=8%
+#  recipe to execute (from 'Makefile', line 115):
+	@echo Build complete for $(ECHO_MESSAGE)
+
+imgui_draw.o: imgui/lib//imgui_draw.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'imgui_draw'
+#  Last modified 2023-08-31 21:02:06.751118709
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 103):
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+# Not a target:
+main.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2023-08-31 18:27:38.627464167
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+imgui/lib//imgui_demo.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2021-03-31 11:43:54
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+imgui/lib//backend/imgui_impl_sdl.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2021-03-31 11:43:54
+#  File has been updated.
+#  Successfully updated.
+
+main.o: main.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'main'
+#  Last modified 2023-08-31 21:01:45.617694011
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 100):
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+# Not a target:
+mem.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2021-03-31 16:09:32
+#  File has been updated.
+#  Successfully updated.
+
+network.o: network.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'network'
+#  Last modified 2023-08-31 21:01:59.506625176
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 100):
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+imgui_demo.o: imgui/lib//imgui_demo.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'imgui_demo'
+#  Last modified 2023-08-31 21:02:04.386957074
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 103):
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+memorywindow.o: memorywindow.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'memorywindow'
+#  Last modified 2023-08-31 21:01:50.177997519
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 100):
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+monitor: main.o systemwindow.o memorywindow.o networkwindow.o system.o mem.o network.o imgui.o imgui_demo.o imgui_draw.o imgui_tables.o imgui_widgets.o imgui_impl_sdl.o imgui_impl_opengl3.o gl3w.o
+#  Implicit rule search has not been done.
+#  Last modified 2023-08-31 21:02:13.399576204
+ 
+#  File has been updated.
+ 
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 118):
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIBS)
+
+# Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# files hash-table stats:
+# Load=36/1024=4%, Rehash=0, Collisions=0/122=0%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 90 / storage = 1325 B / avg = 14 B
+# current buf: size = 8162 B / used = 1325 B / count = 90 / avg = 14 B
+
+# strcache performance: lookups = 155 / hit rate = 41%
+# hash-table stats:
+# Load=90/8192=1%, Rehash=0, Collisions=0/155=0%
+# Finished Make data base on Mon Sep  4 09:41:55 2023
+
+ 

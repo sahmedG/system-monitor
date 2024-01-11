@@ -1,0 +1,5 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory '/home/sam/system-monitor'
+echo Build complete for "Linux"
+make: Leaving directory '/home/sam/system-monitor'
+ 
