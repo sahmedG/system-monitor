@@ -16,17 +16,13 @@
 
 EXE = monitor
 IMGUI_DIR = imgui/lib/
-IMP_DIR = implot/
 SOURCES = main.cpp
 SOURCES += systemwindow.cpp
 SOURCES += memorywindow.cpp
 SOURCES += networkwindow.cpp
 SOURCES += system.cpp
-SOURCES += mem.cpp
-SOURCES += network.cpp
 SOURCES += $(IMGUI_DIR)/imgui.cpp $(IMGUI_DIR)/imgui_demo.cpp $(IMGUI_DIR)/imgui_draw.cpp $(IMGUI_DIR)/imgui_tables.cpp $(IMGUI_DIR)/imgui_widgets.cpp
 SOURCES += $(IMGUI_DIR)/backend/imgui_impl_sdl.cpp $(IMGUI_DIR)/backend/imgui_impl_opengl3.cpp
-SOURCES += $(IMP_DIR)/implot.cpp $(IMP_DIR)/implot_items.cpp 
 OBJS = $(addsuffix .o, $(basename $(notdir $(SOURCES))))
 UNAME_S := $(shell uname -s)
 
@@ -70,9 +66,9 @@ CXXFLAGS += -I imgui/lib/gl3w -DIMGUI_IMPL_OPENGL_LOADER_GL3W
 
 ifeq ($(UNAME_S), Linux) #LINUX
 	ECHO_MESSAGE = "Linux"
-	LIBS += -lGL -ldl `sdl2-config --libs` -lsensors -I/usr/include/sensors/sensors.h
+	LIBS += -lGL -ldl `sdl2-config --libs` -lsensors -I/usr/include/sensors/sensors.h -L/home/sam/system-monitor/fmt/build -lfmt
 
-	CXXFLAGS += `sdl2-config --cflags`
+	CXXFLAGS += `sdl2-config --cflags` -I/fmt/include/fmt/core.h
 	CFLAGS = $(CXXFLAGS)
 endif
 

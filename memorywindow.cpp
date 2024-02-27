@@ -1,80 +1,60 @@
 #include "header.h"
 
+static std::unordered_map<int, bool> previousSelection;
+static std::vector<ProcessSelection> processSelectionList;
+
 void fetchProcessData(std::vector<ProcessInfo> &processList,
                       const std::string &filterText) {
 
-  DIR *procDir = opendir("/proc"); // Open the /proc directory
+  std::string command = "ps -e -o pid,comm,state,%cpu,%mem --sort=-%cpu";
 
-  if (!procDir) {
-    std::cerr << "Failed to open /proc directory." << std::endl;
+  FILE *fp = popen(command.c_str(), "r");
+  if (!fp) {
+    std::cerr << "Error executing ps command." << std::endl;
     return;
   }
 
-  struct dirent *entry;
-  while ((entry = readdir(procDir)) != nullptr) {
-    if (entry->d_type == DT_DIR) {
-      int pid;
-      if (sscanf(entry->d_name, "%d", &pid) != 1) {
-        continue; // Skip entries that are not process directories
-      }
-      std::ifstream processDir("/proc/" + std::to_string(pid));
-      if (!processDir.is_open()) {
-        std::cout << "Skipped process with PID: " << pid << std::endl;
-        continue;
-      }
+  char line2[256];
+  char line3[256];
+  char line[256];
 
-      std::ifstream statusFile("/proc/" + std::to_string(pid) + "/status");
-      std::string line;
-      std::string name;
-      std::string state;
-
-      while (std::getline(statusFile, line)) {
-        if (line.find("Name:") == 0) {
-          name = line.substr(6);
-        } else if (line.find("State:") == 0) {
-          state = line.substr(7);
-        }
-      }
-
-      std::ifstream statFile("/proc/" + std::to_string(pid) + "/stat");
-      std::string statLine;
-
-      if (std::getline(statFile, statLine)) {
-        std::istringstream statStream(statLine);
-        std::string token;
-
-        for (int i = 1; i <= 13; ++i) {
-          statStream >> token;
-        }
-
-        unsigned long long utime, stime;
-        statStream >> utime >> stime;
-
-        unsigned long long totalTime = utime + stime;
-        float cpuUsage = static_cast<float>(totalTime) / sysconf(_SC_CLK_TCK);
-
-        std::ifstream statmFile("/proc/" + std::to_string(pid) + "/statm");
-        std::string statmLine;
-        unsigned long long memoryUsage = 0;
-
-        if (std::getline(statmFile, statmLine)) {
-          std::istringstream statmStream(statmLine);
-          statmStream >> memoryUsage;
-        }
-
-        float totalMemory = sysconf(_SC_PAGESIZE) *
-                            static_cast<float>(memoryUsage) / (1024 * 1024);
-
-        if (!filterText.empty() && name.find(filterText) == std::string::npos) {
-          continue;
-        }
-
-        processList.emplace_back(pid, name, state, cpuUsage, totalMemory,
-                                 false);
-      }
-    }
+  // Store previous selection states
+  for (const auto &process : processList) {
+    previousSelection[process.pid] = process.selected;
   }
-  closedir(procDir);
+
+  // Clear the existing list
+  processList.clear();
+  // processSelectionList.clear();
+
+  while (fgets(line, sizeof(line), fp)) {
+    int pid;
+    std::string name, state;
+    float cpuUsage, memoryUsage;
+
+    if (sscanf(line, "%d %s %s %f %f", &pid, line2, line3, &cpuUsage,
+               &memoryUsage) != 5) {
+      continue;
+    }
+
+    name = line2;
+    state = line3;
+    if (!filterText.empty() && name.find(filterText) == std::string::npos) {
+      continue;
+    }
+
+    bool previousSelected =
+        previousSelection.find(pid) != previousSelection.end()
+            ? previousSelection[pid]
+            : false;
+
+    // Store selection state in the new list
+    processSelectionList.emplace_back(pid, previousSelected);
+
+    processList.emplace_back(pid, name, state, cpuUsage, memoryUsage, false);
+  }
+
+  pclose(fp);
 }
 
 void memoryProcessesWindow(const char *id, ImVec2 size, ImVec2 position,
@@ -102,86 +82,177 @@ void memoryProcessesWindow(const char *id, ImVec2 size, ImVec2 position,
 
   float ramUsage =
       100.0f * (1.0f - (float)available_memory / (float)total_memory);
+  std::string command_used_space = "df -P / | tail -1 | awk '{print $5}'";
 
-  std::string command = "df -P / | tail -1 | awk '{print $5}'";
-  FILE *df_output = popen(command.c_str(), "r");
+  // Command to get total disk space
+  std::string command_total_space = "df -P / | tail -1 | awk '{print $2}'";
+
+  FILE *df_output_used = popen(command_used_space.c_str(), "r");
+  FILE *df_output_total = popen(command_total_space.c_str(), "r");
+
   float diskUsage = 0.0f;
+  float diskSize = 0.0f;
 
-  if (df_output != NULL) {
-    fscanf(df_output, "%f", &diskUsage);
-    pclose(df_output);
+  // Read the output of the df command
+  char buffer[128];
+  if (fgets(buffer, sizeof(buffer), df_output_used) != NULL) {
+    diskUsage = strtof(buffer, nullptr);
   }
+
+  if (fgets(buffer, sizeof(buffer), df_output_total) != NULL) {
+    diskSize = strtof(buffer, nullptr);
+  }
+  diskSize = diskSize / (1024 * 1024);
+  diskSize = static_cast<float>(std::ceil(diskSize));
+  // Close the file pointers
+  pclose(df_output_used);
+  pclose(df_output_total);
 
   ImGui::Begin(id);
   ImGui::SetWindowSize(id, size);
   ImGui::SetWindowPos(id, position);
 
-  ImGui::Text("RAM Usage: %.2f%%", ramUsage);
-  ImGui::ProgressBar(ramUsage / 100.0f, ImVec2(-1, 0), "##RAMBar");
+  // ram area
+  unsigned long long used_memory = total_memory - available_memory;
+  used_memory = used_memory / 1024;
+  used_memory = used_memory / 1024;
+
+  ImGui::Text("Physical Memory (RAM) total size: %lliGB, Used: %lliGB",
+              total_memory / 1000000, used_memory);
+  float progressBarWidth = -1; // Full width
+  // Progress bar
+  ImGui::ProgressBar(ramUsage / 100.0f, ImVec2(progressBarWidth, 0));
+  // Calculate the position for the 0% and 100% labels
+  ImVec2 progressBarStart = ImGui::GetItemRectMin();
+  ImVec2 progressBarEnd = ImGui::GetItemRectMax();
+  ImVec2 textPosition0 = ImVec2(progressBarStart.x, progressBarEnd.y + 5);
+  ImVec2 textPosition100 = ImVec2(progressBarEnd.x - 30, progressBarEnd.y + 5);
+  // Draw the text for 0% at the start of the progress bar
+  ImGui::GetWindowDrawList()->AddText(textPosition0, IM_COL32_WHITE, "0%");
+  // Draw the text for 100% at the end of the progress bar
+  ImGui::GetWindowDrawList()->AddText(textPosition100, IM_COL32_WHITE, "100%");
+  // Move the cursor to the next line
+  ImGui::NewLine();
   ImGui::Separator();
 
-  ImGui::Text("Disk Usage: %.2f%%", diskUsage);
-  ImGui::ProgressBar(diskUsage / 100.0f, ImVec2(-1, 0), "##DiskBar");
-  ImGui::Separator();
-
+  // swap area
+  long long totalSwap = getSwapTotal();
   float swapUsage = getSwapUsage();
-  ImGui::Text("SWAP Usage:%.2f%%", swapUsage);
-  ImGui::ProgressBar(swapUsage / 100.0f, ImVec2(-1, 0), "##SWAPBar");
+  ImGui::Text("Virtual Memory (SWAP) total size %lldGB:", totalSwap);
+  ImGui::ProgressBar(swapUsage / 100.0f, ImVec2(-1, 0));
+  ImVec2 progressBarStart2 = ImGui::GetItemRectMin();
+  ImVec2 progressBarEnd2 = ImGui::GetItemRectMax();
+  ImVec2 textPosition02 = ImVec2(progressBarStart2.x, progressBarEnd2.y + 5);
+  ImVec2 textPosition1002 =
+      ImVec2(progressBarEnd2.x - 30, progressBarEnd2.y + 5);
+  // Draw the text for 0% at the start of the SWAP progress bar
+  ImGui::GetWindowDrawList()->AddText(textPosition02, IM_COL32_WHITE, "0%");
+  // Draw the text for 100% at the end of the SWAP progress bar
+  ImGui::GetWindowDrawList()->AddText(textPosition1002, IM_COL32_WHITE, "100%");
+  // Move the cursor to the next line
+  ImGui::NewLine();
+  ImGui::Separator();
 
+  // disk area
+  ImGui::Text("Disk total size %0.2f GB:", diskSize);
+  // Construct the string for disk usage
+  std::string diskUsageText = "Disk Usage: ";
+  diskUsageText += std::to_string(diskUsage);
+  diskUsageText += "%%";
+
+  // Use the constructed string with ImGui::ProgressBar
+  ImGui::ProgressBar(diskUsage / 100.0f, ImVec2(-1, 0), diskUsageText.c_str());
+
+  ImVec2 progressBarStart3 = ImGui::GetItemRectMin();
+  ImVec2 progressBarEnd3 = ImGui::GetItemRectMax();
+  ImVec2 textPosition03 = ImVec2(progressBarStart3.x, progressBarEnd3.y + 5);
+  ImVec2 textPosition1003 =
+      ImVec2(progressBarEnd3.x - 30, progressBarEnd3.y + 5);
+  // Draw the text for 0% at the start of the Disk progress bar
+  ImGui::GetWindowDrawList()->AddText(textPosition03, IM_COL32_WHITE, "0%");
+  // Draw the text for 100% at the end of the Disk progress bar
+  ImGui::GetWindowDrawList()->AddText(textPosition1003, IM_COL32_WHITE, "100%");
+  // Move the cursor to the next line
+  ImGui::NewLine();
+  ImGui::Separator();
+
+  // processes area
   if (ImGui::BeginTabBar("ProcessTabs")) {
     if (ImGui::BeginTabItem("Processes")) {
       char filterBuffer[256];
       strcpy(filterBuffer, filterText.c_str());
-
+      std::transform(filterBuffer, filterBuffer + strlen(filterBuffer),
+                     filterBuffer, ::tolower);
       ImGui::InputText("Filter", filterBuffer, sizeof(filterBuffer));
 
       filterText = filterBuffer;
-      ImGui::Columns(6, "ProcessTable", true);
-      ImGui::Separator();
-      ImGui::Text("PID");
-      ImGui::NextColumn();
-      ImGui::Text("Name");
-      ImGui::NextColumn();
-      ImGui::Text("State");
-      ImGui::NextColumn();
-      ImGui::Text("CPU Usage");
-      ImGui::NextColumn();
-      ImGui::Text("Memory Usage");
-      ImGui::NextColumn();
-      ImGui::Text("Select");
-      ImGui::NextColumn();
+      ImGui::BeginTable("ProcessTable", 5,
+                        ImGuiTableFlags_ContextMenuInBody |
+                            ImGuiTableFlags_RowBg);
+      ImGui::TableSetupColumn("PID");
+      ImGui::TableSetupColumn("Name");
+      ImGui::TableSetupColumn("State");
+      ImGui::TableSetupColumn("CPU Usage");
+      ImGui::TableSetupColumn("Memory Usage");
+      ImGui::TableHeadersRow();
       ImGui::Separator();
 
-      for (int i = 0; i < processList.size(); ++i) {
+      for (auto i = 0u; i < processList.size(); ++i) {
+
+        std::transform(processList[i].name.begin(), processList[i].name.end(),
+                       processList[i].name.begin(), ::tolower);
         if (!filterText.empty() &&
             processList[i].name.find(filterText) == std::string::npos)
           continue;
 
-        ImGui::Text("%d", processList[i].pid);
-        ImGui::NextColumn();
-        ImGui::Text("%s", processList[i].name.c_str());
-        ImGui::NextColumn();
-        ImGui::Text("%s", processList[i].state.c_str());
-        ImGui::NextColumn();
-        ImGui::Text("%.2f%%", processList[i].cpuUsage);
-        ImGui::NextColumn();
-        ImGui::Text("%.2f%%", processList[i].memoryUsage);
-        ImGui::NextColumn();
+        ImGui::TableNextRow();
 
-        ImGui::Checkbox(("##Select" + std::to_string(i)).c_str(),
-                        &processList[i].selected);
-        ImGui::NextColumn();
+        bool isRowHovered = false;
+
+        for (int col = 0; col < 5; col++) {
+          ImGui::TableSetColumnIndex(col);
+
+          // Your existing code for displaying text in each column
+          if (col == 0)
+            ImGui::Text("%d", processList[i].pid);
+          else if (col == 1)
+            ImGui::Text("%s", processList[i].name.c_str());
+          else if (col == 2)
+            ImGui::Text("%s", processList[i].state.c_str());
+          else if (col == 3)
+            ImGui::Text("%.2f%%", processList[i].cpuUsage);
+          else if (col == 4)
+            ImGui::Text("%.2f%%", processList[i].memoryUsage);
+
+          // Check if the entire row is hovered
+          if (ImGui::IsItemHovered()) {
+            isRowHovered = true;
+
+            // Set row background color for hover
+            ImGui::TableSetBgColor(ImGuiTableBgTarget_RowBg0,
+                                   IM_COL32(255, 255, 0, 100));
+          }
+        }
+
+        if (isRowHovered && ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {
+          processSelectionList[i].selected = !processSelectionList[i].selected;
+          std::cout << "Row " << i
+                    << " Selected: " << processSelectionList[i].selected
+                    << std::endl;
+        }
+
+        if (processSelectionList[i].selected) {
+          ImGui::TableSetBgColor(ImGuiTableBgTarget_RowBg0,
+                                 IM_COL32(0, 0, 255, 100));
+        }
       }
 
-      ImGui::Columns(1);
-      ImGui::Separator();
-
+      ImGui::EndTable();
       ImGui::EndTabItem();
     }
 
     ImGui::EndTabBar();
   }
-
   ImGui::End();
 }
 
@@ -211,4 +282,24 @@ float getSwapUsage() {
 
   float swapUsage = 100.0f * ((totalSwap - freeSwap) / totalSwap);
   return swapUsage;
+}
+
+long long getSwapTotal() {
+  std::ifstream meminfo("/proc/meminfo");
+  std::string line;
+
+  while (std::getline(meminfo, line)) {
+    if (line.find("SwapTotal") != std::string::npos) {
+      long long swapTotal;
+      if (sscanf(line.c_str(), "SwapTotal: %lld kB", &swapTotal) == 1) {
+        // Convert from kilobytes to bytes
+        double swapTotalGB =
+            swapTotal / (1024.0 * 1024.0); // Convert from KB to GB
+        return static_cast<float>(std::ceil(swapTotalGB));
+      }
+    }
+  }
+
+  // Return 0 if SwapTotal is not found (or in case of any error)
+  return 0;
 }

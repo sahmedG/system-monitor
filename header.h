@@ -1,42 +1,50 @@
 
-#include </home/sam/system-monitor/imgui/lib/backend/imgui_impl_opengl3.h>
-#include </home/sam/system-monitor/imgui/lib/backend/imgui_impl_sdl.h>
-#include </home/sam/system-monitor/imgui/lib/gl3w/GL/gl3w.h>
-#include </home/sam/system-monitor/imgui/lib/imgui.h>
+#include "imgui/lib/backend/imgui_impl_opengl3.h"
+#include "imgui/lib/backend/imgui_impl_sdl.h"
+#include "imgui/lib/gl3w/GL/gl3w.h"
+#include "imgui/lib/imgui.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 #include <algorithm>
 #define _CRT_SECURE_NO_WARNINGS
-#include "/home/sam/system-monitor/implot/implot.h"
 
-// #include <SDL2/SDL_opengl_glext.h>
-#include <cmath>
-#include <dirent.h>
-#include <iostream>
-#include <stdio.h>
-#include <vector>
-#include <regex>
-#include <chrono>
-#include <fstream>
-#include <sstream>
-#include <thread>
-#include <cstdio>
-#include <limits.h>
-#include <unistd.h>
+#include <cstdlib>
+#include <numeric>
+#include <sensors/sensors.h>
 #include </usr/include/sensors/sensors.h>
+#include <chrono>
+#include <cmath>
 #include <cpuid.h>
+#include <cstdio>
+#include <ctime>
+#include <dirent.h>
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+#include <limits.h>
+#include <regex>
+#include <sstream>
+#include <stdio.h>
 #include <sys/statvfs.h>
 #include <sys/sysinfo.h>
 #include <sys/types.h>
-#include <ctime>
+#include <thread>
+#include <unistd.h>
+#include <vector>
 #define BUF_MAX 1024
 #define MAX_CPU 124
 #include <arpa/inet.h>
 #include <cstring>
 #include <ifaddrs.h>
+#include <iterator> // for std::begin and std::end
 #include <map>
 #include <netinet/in.h>
+#include <regex>
+#include <set>
 #include <string>
+#include <tuple>
+
+
 using namespace std;
 
 struct CPUStats {
@@ -84,17 +92,26 @@ struct TX {
 };
 
 struct ProcessInfo {
+  int pid;
+  std::string name;
+  std::string state;
+  float cpuUsage;
+  float memoryUsage;
+  bool selected;
+
+  ProcessInfo(int _pid, const std::string &_name, const std::string &_state,
+              float _cpuUsage, float _memoryUsage, bool _selected)
+      : pid(_pid), name(_name), state(_state), cpuUsage(_cpuUsage),
+        memoryUsage(_memoryUsage), selected(_selected) {}
+  ProcessInfo() : pid(0), cpuUsage(0.0f), memoryUsage(0.0f), selected(false) {}
+
+};
+
+struct ProcessSelection {
     int pid;
-    std::string name;
-    std::string state;
-    float cpuUsage;
-    float memoryUsage;
     bool selected;
 
-    ProcessInfo(int _pid, const std::string& _name, const std::string& _state,
-                float _cpuUsage, float _memoryUsage, bool _selected)
-        : pid(_pid), name(_name), state(_state),
-          cpuUsage(_cpuUsage), memoryUsage(_memoryUsage), selected(_selected) {}
+    ProcessSelection(int _pid, bool _selected) : pid(_pid), selected(_selected) {}
 };
 
 struct RX {
@@ -115,18 +132,21 @@ int getNumberOfCores();
 long long getCPUtimeForCore(int core);
 float getCPUUsageForCore(int core);
 int systemWindow(const char *id, ImVec2 size, ImVec2 position);
-void fetchProcessData(std::vector<ProcessInfo>& processList, const std::string& filterText);
-void memoryProcessesWindow(const char* id, ImVec2 size, ImVec2 position, std::vector<ProcessInfo>& processList, std::string& filterText);
+void fetchProcessData(std::vector<ProcessInfo> &processList,
+                      const std::string &filterText);
+void memoryProcessesWindow(const char *id, ImVec2 size, ImVec2 position,
+                           std::vector<ProcessInfo> &processList,
+                           std::string &filterText);
 void networkWindow(const char *id, ImVec2 size, ImVec2 position);
-int read_fields (FILE *fp, unsigned long long int *fields);
+int read_fields(FILE *fp, unsigned long long int *fields);
 int cpudata(void);
 std::vector<double> readCoreUsage();
 float getSwapUsage();
 float GetCpuUsage();
 void UpdateCpuUsage();
 void RenderCpuUsage();
-void printProcessList(const std::vector<ProcessInfo>& processList);
+long long getSwapTotal();
+void printProcessList(const std::vector<ProcessInfo> &processList);
+void UpdateFanSpeedData(float fanSpeed);
+std::string formatBytes(double bytes);
 std::string formatBytes(unsigned long long bytes);
-// student TODO : memory and processes
-
-// student TODO : network

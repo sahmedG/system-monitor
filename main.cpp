@@ -60,7 +60,7 @@ int main(int, char **) {
   // Setup Dear ImGui context
   IMGUI_CHECKVERSION();
   ImGui::CreateContext();
-  ImPlot::CreateContext();
+  // ImPlot::CreateContext();
   // render bindings
   ImGuiIO &io = ImGui::GetIO();
 
@@ -97,17 +97,16 @@ int main(int, char **) {
           event.window.windowID == SDL_GetWindowID(window))
         done = true;
     }
+    std::vector<ProcessInfo> processList;
+    std::string filterText;
+
+    // processList.clear();
+    fetchProcessData(processList, filterText);
 
     // Start the Dear ImGui frame
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame(window);
     ImGui::NewFrame();
-
-    std::vector<ProcessInfo> processList;
-    std::string filterText;
-
-    processList.clear();
-    fetchProcessData(processList, filterText);
 
     ImVec2 mainDisplay = io.DisplaySize;
     memoryProcessesWindow(
@@ -136,7 +135,7 @@ int main(int, char **) {
   // Cleanup
   ImGui_ImplOpenGL3_Shutdown();
   ImGui_ImplSDL2_Shutdown();
-  ImPlot::DestroyContext();
+  // ImPlot::DestroyContext();
   ImGui::DestroyContext();
 
   SDL_GL_DeleteContext(gl_context);

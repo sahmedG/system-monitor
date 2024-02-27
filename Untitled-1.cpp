@@ -8,7 +8,8 @@
 //   }
 //   retval = sscanf(buffer, "cpu %Lu %Lu %Lu %Lu %Lu %Lu %Lu %Lu %Lu %Lu",
 //                   &fields[0], &fields[1], &fields[2], &fields[3], &fields[4],
-//                   &fields[5], &fields[6], &fields[7], &fields[8], &fields[9]);
+//                   &fields[5], &fields[6], &fields[7], &fields[8],
+//                   &fields[9]);
 //   if (retval < 4) /* Atleast 4 fields is to be read */
 //   {
 //     fprintf(stderr, "Error reading /proc/stat cpu field\n");
@@ -19,7 +20,8 @@
 
 // int cpudata(void) {
 //   FILE *fp;
-//   unsigned long long int fields[10], total_tick, total_tick_old, idle, idle_old,
+//   unsigned long long int fields[10], total_tick, total_tick_old, idle,
+//   idle_old,
 //       del_total_tick, del_idle;
 //   int update_cycle = 0, i, flag = 1;
 //   double percent_usage;
@@ -63,8 +65,39 @@
 //     update_cycle++;
 //   }
 
-//   fclose(fp); /* Ctrl + C quit, therefore this will not be reached. We rely on
+//   fclose(fp); /* Ctrl + C quit, therefore this will not be reached. We rely
+//   on
 //                  the kernel to close this file */
 
 //   return 0;
+// }
+
+// if (ImPlot::BeginPlot("CPU Usage", ImVec2(600, cpuYScale))) {
+//   // Plot the CPU usage data
+//   if (!animationPaused) {
+//     ImPlot::PlotLine("Usage", cpuUsageHistory, MaxDataPoints, 100.0f,
+//                      0.0f, 0, dataOffset);
+//   }
+//   // End the plot
+//   ImPlot::EndPlot();
+// }
+
+// char line[256];
+// while (fgets(line, sizeof(line), statFile)) {
+//   if (strncmp(line, "cpu", 3) == 0) {
+//     int core;
+//     unsigned long long user, nice, system, idle, iowait, irq, softirq,
+//         steal, guest, guest_nice;
+//     if (sscanf(line,
+//                "cpu%d %llu %llu %llu %llu %llu %llu %llu %llu %llu %llu",
+//                &core, &user, &nice, &system, &idle, &iowait, &irq, &softirq,
+//                &steal, &guest, &guest_nice) == 11) {
+//       unsigned long long totalCpuTime =
+//           user + nice + system + idle + iowait + irq + softirq + steal;
+//       unsigned long long idleTime = idle + iowait;
+
+//       usagePetcentage =
+//           (totalCpuTime - idleTime) / (double)totalCpuTime * 100;
+//     }
+//   }
 // }
